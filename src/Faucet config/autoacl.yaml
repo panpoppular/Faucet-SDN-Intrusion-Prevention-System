@@ -1,0 +1,72 @@
+acls:
+  ssdpban:
+  - rule:
+      actions:
+        allow: 0
+      dl_type: 2048
+      ip_proto: 17
+      ipv4_src: 192.168.255.1
+  test-bl:
+  - rule:
+      actions:
+        allow: 0
+      dl_type: 2048
+      ipv4_src: 192.168.50.94
+  - rule:
+      actions:
+        allow: 0
+      dl_type: 2048
+      ipv4_src: 192.168.50.92
+  - rule:
+      actions:
+        allow: 0
+      dl_type: 2048
+      ipv4_src: 192.168.50.90
+  - rule:
+      actions:
+        allow: 0
+      dl_type: 2048
+      ipv4_src: 192.168.50.84
+  - rule:
+      actions:
+        allow: 0
+      dl_type: 2048
+      ipv4_src: 192.168.50.82
+  - rule:
+      actions:
+        allow: 0
+      dl_type: 2048
+      ipv4_src: 192.168.50.80
+  - rule:
+      actions:
+        allow: 0
+      dl_type: 2048
+      ipv4_src: 192.168.25.94
+  - rule:
+      actions:
+        allow: 0
+      dl_type: 2048
+      ipv4_src: 192.168.25.92
+  - rule:
+      actions:
+        allow: 0
+      dl_type: 2048
+      ipv4_src: 192.168.25.90
+  - rule:
+      actions:
+        allow: 0
+      dl_type: 2048
+      ipv4_src: 192.168.25.84
+  - rule:
+      actions:
+        allow: 0
+      dl_type: 2048
+      ipv4_src: 192.168.25.82
+  - rule:
+      actions:
+        allow: 0
+      dl_type: 2048
+      ipv4_src: 192.168.25.80
+  - rule:
+      actions:
+        allow: 1

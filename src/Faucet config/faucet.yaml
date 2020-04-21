@@ -1,0 +1,37 @@
+include:
+    - /home/pan/faucetacl/autoacl.yaml
+
+dps:
+    switch-1:
+        dp_id: 0x1
+        hardware: "Open vSwitch"
+        #timeout: 3600
+        #arp_neighbor_timeout: 3600
+        interfaces:
+            1:
+                output_only: True
+                mirror: [2,3,4,5,6]
+#               native_vlan: 200
+            2:
+                native_vlan: 100
+                acls_in: [test-bl]
+            3:
+                native_vlan: 100
+                acls_in: [test-bl,ssdpban]
+            4:
+                native_vlan: 100
+                acls_in: [test-bl,ssdpban]
+            5:
+                native_vlan: 100
+                acls_in: [test-bl,ssdpban]
+
+            6:
+                native_vlan: 100
+                acls_in: [test-bl,ssdpban]
+#            7:
+#                native_vlan: 100
+#                acls_in: [test-bl]
+
+vlans:
+    100:
+    200:
