@@ -9,25 +9,19 @@ from subprocess import PIPE, Popen, run
 from threading  import Thread
 from collections import deque, defaultdict
 import time
-
+import datetime
 import joblib
 import numpy as np
 
 import atexit
 
 from tensorflow.keras.models import load_model
-model = load_model('./keras_model/UNSW_BoT-IoT_8F/Scan_Keras_8F_9L.h5')
-model2 = load_model('./keras_model/UNSW_BoT-IoT_8F/TCP_Keras_8F_9L.h5')
-
-#model = joblib.load('./sklearn_model/UNSW_scan_minmax_10F/model005.jlb')
+model = load_model('./keras_model/UNSW_BoT-IoT_8F/TCP_Keras_8F_9L.h5')
 scaler = joblib.load('./keras_model/UNSW_BoT-IoT_8F/minmax_KerasF1-8F.jlb')
 
-THRESHOLD = 0.9
+THRESHOLD = 0.5
 
 bl_IP = set()
-bl_MAC = set()
-
-#qw = deque(maxlen = 100)
 
 srcipq = deque(maxlen = 100)
 destipq = deque(maxlen = 100)
@@ -40,6 +34,7 @@ attack_ip = "192.168.255.174"
 FP_ELM_TH = 10
 LastIP = "0.0.0.0"
 Count = 0
+blkinit = 0
 
 try:
     from queue import Queue, Empty, Full
@@ -51,6 +46,8 @@ ON_POSIX = 'posix' in sys.builtin_module_names
 def exithand():
 	run(["util/resetyml.py"])
 	print(conf_mat)
+	print("blocking_initate:")
+	print(blkinit)
 
 def count(ip,result):
 	#count Ip
@@ -60,12 +57,14 @@ def count(ip,result):
 def check_IP(ip):
 	global LastIP
 	global Count
+	global blkinit
 	if ip == LastIP:
 		Count += 1
 		print("Count: "+str(Count))
 		if Count > FP_ELM_TH:
 			if(ip not in bl_IP):
 				bl_IP.add(ip)
+				blkinit = datetime.datetime.now()
 				print("Blocking: " + ip)
 				run(["util/yml.py",ip])
 	else:
@@ -111,7 +110,7 @@ def enqueue_output(out, queue):
     for line in iter(out.readline,''):
         try: queue.put_nowait(line)
         except Full:
-            #print("dropped")
+            drop = queue.get()
             pass
     out.close()	
 
@@ -121,7 +120,7 @@ t = Thread(target=enqueue_output, args=(p.stdout, q))
 t.daemon = True # thread dies with the program
 t.start()
 atexit.register(exithand)
-# ... do other things here
+
 while(True):
 # read line without blocking
 	#time.sleep(0.002)
