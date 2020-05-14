@@ -1,6 +1,6 @@
 include:
     - /home/pan/faucetacl/autoacl.yaml
-
+#MUST BE ABSOLUTE PATH TO ACL FILES
 dps:
     switch-1:
         dp_id: 0x1

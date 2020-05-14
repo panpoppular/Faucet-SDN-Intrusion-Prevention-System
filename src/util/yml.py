@@ -23,7 +23,7 @@ except:
     print('Usage : %s  ip' % sys.argv[0])
     sys.exit(2)
 
-with open("autoacl.yaml") as f:
+with open("./autoacl.yaml") as f:
      list_doc = yaml.load(f)
 
 print(list_doc)

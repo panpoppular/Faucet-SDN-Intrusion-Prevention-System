@@ -1,0 +1,9 @@
+argus -r mirai-udpflooding-{1..4}-dec.pcap -S 1 -Z -w udpout10.argus - ip and not icmp and not arp
+
+sudo argus -i enp0s9 -m -Z -P 561 - ip and not icmp and not multicast
+
+sudo argus -i ens38 -m -Z -P 561 - ip and not icmp and not multicast
+
+-S ระบุ time windows
+
+ra -r udpout04.argus -M noman -c "," -nn -s -Z +ltime +seq +dur +mean +stddev +sum +min +max +spkts +dpkts +sbytes +dbytes +rate +srate +drate >> udp04.csv
