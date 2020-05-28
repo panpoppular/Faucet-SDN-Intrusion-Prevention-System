@@ -1,3 +1,0 @@
-1.Select Open vSwitch management
-2.Start, then console
-3.
