@@ -1,5 +1,8 @@
 # Faucet SDN Intrusion Prevention System
 
+## How does this work.
+(Todo)
+
 ## Requirement (Controller)
 1. Joblib, Tensorflow, scikit-learn
 2. argus-server, argus-cilent
@@ -18,10 +21,25 @@
 1. Run `sudo argus -i <monitoring interface> -m -Z -P 561` on terminal
 2. On Seperate terminal, change directory to src and run `python3 Real_IDS_8F`  to start IDS.
 
+## Attack testing
 
+On kali linux node, double click to open consol, install nmap and hping3.
+```
+$ apt update
+$ apt install hping3
+$ apt install nmap
+```
+
+The hping3 is DoS tools and Nmap is port scanning tools, you can test by these command.
+```
+$ nmap -p- <Target IP>
+$ hping3 -S hping3 <Target IP> -s --flood -c 200000 
+```
 
 # Simulate on GNS3
 Installing GNS3 is complex task to do (depended on OS) please consult the [Installation guide](https://docs.gns3.com/)
+
+## Import Project
 
 ## [Add component templates](https://docs.gns3.com/1_3RdgLWgfk4ylRr99htYZrGMoFlJcmKAAaUAc8x9Ph8/index.html)
 1. Goto File > New template
@@ -35,11 +53,11 @@ Installing GNS3 is complex task to do (depended on OS) please consult the [Insta
 2. Go to edit > Preferences
 3. Follow instruction.
 4. After finished configuration, start VM node and config IP fore each interfaces
-`
+```
 1.e0 = Static IP (Same network as Controller IP) (This interface is for openflow controller)
 2.e1 = link-local only (Mirrored interface)
 3.e2 = dhcp (Internet interface) (Connect to nat node)
-`
+```
 ## Creating topology
 (pic)
 
@@ -51,9 +69,9 @@ Installing GNS3 is complex task to do (depended on OS) please consult the [Insta
 4. On other docker nodes (webterms, ubuntu) you may config by use dhcp or static ip.
 5. Start OpenvSwitchmanagement node and double click to access console
 6. Normally, eth1-15 is under br0, you need to tell br0 to recognize controller by issuling this command.
-`
+```
 $ ovs-vsctl set-controller br0 tcp:(Controller IP):6653
 $ ovs-vsctl set controller br0 connection-mode=out-of-band
-`
+```
 
 
