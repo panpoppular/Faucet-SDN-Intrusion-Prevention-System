@@ -1,6 +1,6 @@
 #cmd = "ra  -M noman -c, -M dsrs='-arg' -L -1 -S 127.0.0.1 -s"
 #cmdshell = "rabins -B 0.25s -M time 0.25s noman -c, -m matrix proto -S localhost -L -1 -s \"-stime +0rank -sport -dport -flgs -dir -pkts -bytes -state +4seq +7state  +stddev +min +mean +drate +srate +max\""
-cmdshell = "ra -M noman -c, -S localhost -L -1 -s rank ltime proto saddr sport daddr dport state mean min max srate drate"
+cmdshell = "ra -M noman -c, -S 127.0.0.1 -L -1 -s rank ltime proto saddr sport daddr dport state mean min max srate drate"
 #arglist2 = cmd.split()
 #arglist = arglist2 +['"-stime +0rank -flgs -dir -pkts -bytes -state +7seq +10state  +stddev +min +mean +drate +srate +max"']
 
