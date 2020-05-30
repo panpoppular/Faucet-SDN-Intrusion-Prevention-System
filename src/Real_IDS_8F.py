@@ -16,7 +16,8 @@ import numpy as np
 import atexit
 
 from tensorflow.keras.models import load_model
-model = load_model('./keras_model/UNSW_BoT-IoT_8F/TCP_Keras_8F_9L.h5')
+model = load_model('./keras_model/UNSW_BoT-IoT_8F/Scan_Keras_8F_9L.h5')
+# For some reason, Service scan model is also **somewhat** work to detect Dos model, but not vice versa.
 scaler = joblib.load('./keras_model/UNSW_BoT-IoT_8F/minmax_KerasF1-8F.jlb')
 
 THRESHOLD = 0.5
@@ -29,7 +30,7 @@ srciph = 0
 destiph = 0
 
 conf_mat = np.zeros((2,2),dtype=np.uint32)
-attack_ip = "192.168.255.174"
+attack_ip = "192.168.255.174" # Change to actual attacking IP for correct Confusion matrix.
 
 FP_ELM_TH = 10
 LastIP = "0.0.0.0"
@@ -88,7 +89,7 @@ def listpreprocess(inlist):
 	destipq.appendleft(destiph)
 	inlist[-2] = str(srcipq.count(srciph))
 	inlist[-1] = str(destipq.count(destiph))
-	print(inlist)
+	#print(inlist)
 
 def process(inlist):
 	key = inlist[0:7]
@@ -101,6 +102,7 @@ def process(inlist):
 	result = model.predict_proba(np_x)[0][0]
 	resultint = 1 if result >= THRESHOLD else 0
 	count(key[3],resultint)
+	print(key[3],end=" ")
 	print("Predicted: "+"{:.2f}".format(result))
 	if resultint: check_IP(key[3])
 	else: Count = 0
