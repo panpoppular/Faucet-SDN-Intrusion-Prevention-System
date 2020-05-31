@@ -44,4 +44,4 @@ with open("autoacl.yaml", "w") as f:
     yaml.dump(list_doc, f)
 
 subprocess.Popen(["sudo", "systemctl","reload","faucet"])
-subprocess.run(["cat", "/var/log/faucet/faucet.log"])
+subprocess.run(["tail", "/var/log/faucet/faucet.log"])
